@@ -200,6 +200,13 @@ footer {
   color: #666666;
 }
 
+footer .footer-leaf {
+  height: 1em;
+  width: auto;
+  vertical-align: middle;
+  margin-right: 0.5rem;
+}
+
 @media (max-width: 600px) {
   .nav-container {
     flex-direction: column;
