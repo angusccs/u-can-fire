@@ -202,9 +202,11 @@ footer {
 
 footer .footer-leaf {
   height: 1em;
+  max-height: 18px;
   width: auto;
   vertical-align: middle;
   margin-right: 0.5rem;
+  display: inline-block;
 }
 
 @media (max-width: 600px) {
