@@ -1,14 +1,3 @@
-/*
- * Global stylesheet for the U CAN FIRE static site
- *
- * This CSS implements a simple, modern aesthetic inspired by clean
- * interfaces like ChatGPT and Wealthsimple. It uses a single accent
- * colour for buttons and links, plenty of whitespace, and
- * responsive rules to ensure the site remains usable on both
- * desktop and mobile screens. All measurements favour readability
- * and accessibility.
- */
-
 /* Colour palette */
 :root {
   /* Dark green accent for buttons and links */
