@@ -8,6 +8,33 @@
 // an option to restart the questionnaire.
 
 document.addEventListener('DOMContentLoaded', () => {
+  // Fade-in on page load (body must have class="fade")
+  if (document.body.classList) {
+    document.body.classList.add('show');
+  }
+
+  // Fade-out transitions on internal links
+  document.querySelectorAll('a[href]').forEach(link => {
+    const url = link.getAttribute('href');
+
+    // Only fade out for internal links (no external, no anchors, no mailto)
+    if (!url || url.startsWith('http') || url.startsWith('#') || url.startsWith('mailto:') || link.target === '_blank') {
+      return;
+    }
+
+    link.addEventListener('click', (e) => {
+      // Allow links that are javascript: or empty to behave normally
+      if (url.startsWith('javascript:')) return;
+      e.preventDefault();
+      if (document.body.classList) document.body.classList.remove('show');
+
+      // Wait for fade-out, then navigate
+      setTimeout(() => {
+        window.location.href = url;
+      }, 300); // slightly less than CSS duration
+    });
+  });
+
   const questionContainer = document.getElementById('question-container');
   const questionTextEl = document.getElementById('question-text');
   const yesButton = document.getElementById('yes-button');
