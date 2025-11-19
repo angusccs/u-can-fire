@@ -95,8 +95,17 @@ document.addEventListener('DOMContentLoaded', () => {
    */
   function showCurrentQuestion() {
     const current = questions[currentQuestionIndex];
-    // Replace newline characters with HTML line breaks for proper rendering.
-    questionTextEl.innerHTML = current.text.replace(/\n/g, '<br>');
+    // Bold the first line (before the first newline) and leave the second line unbolded.
+    // Questions are stored with a single `\n` separating the two sentences.
+    const txt = current.text;
+    const firstNewline = txt.indexOf('\n');
+    if (firstNewline !== -1) {
+      const firstLine = txt.slice(0, firstNewline);
+      const rest = txt.slice(firstNewline + 1);
+      questionTextEl.innerHTML = `<strong>${firstLine}</strong><br>${rest.replace(/\n/g, '<br>')}`;
+    } else {
+      questionTextEl.innerHTML = `<strong>${txt}</strong>`;
+    }
     resultContainer.innerHTML = '';
     resultContainer.style.display = 'none';
     questionContainer.style.display = 'block';
