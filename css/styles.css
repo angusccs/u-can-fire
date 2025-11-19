@@ -93,6 +93,11 @@ section {
 /* Hero section styling */
 .hero {
   text-align: center;
+  /* Make hero fill the viewport so user must scroll to see the rest */
+  min-height: calc(100vh - 72px);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
   padding: 3rem 1rem;
 }
 
