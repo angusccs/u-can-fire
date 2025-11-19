@@ -83,7 +83,7 @@ document.addEventListener('DOMContentLoaded', () => {
     {
       text:
         'Do you have long-term financial goals like FI, Coast FI, retirement planning, or a target savings rate?\nThese goals help guide your decisions once the basics are in place.',
-      yes: { stage: { id: 6, name: 'Continue Refining Your Long-Term Plan' } },
+      yes: { congrats: { message: "Congratulations! Seems you are in a good financial position", link: 'resources.html', linkText: 'Further Reading & Resources' } },
       no: { stage: { id: 6, name: 'Long-Term Freedom & FI Basics' } },
     },
   ];
@@ -132,6 +132,23 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   /**
+   * Show a congratulatory message with a link to further reading/resources.
+   * @param {Object} congrats - Object with `message`, `link`, and `linkText`.
+   */
+  function showCongrats(congrats) {
+    questionContainer.style.display = 'none';
+    const resultHtml = `\n      <h2>${congrats.message}</h2>\n      <p>You're already familiar with long-term financial concepts — nice work.</p>\n      <a href="${congrats.link}" class="btn primary-btn">${congrats.linkText}</a>\n      <div style="margin-top: 1rem;">\n        <a href="#" id="restart-questionnaire" class="btn">Restart Questionnaire</a>\n      </div>\n    `;
+    resultContainer.innerHTML = resultHtml;
+    resultContainer.style.display = 'block';
+    const restartLink = document.getElementById('restart-questionnaire');
+    restartLink.addEventListener('click', (e) => {
+      e.preventDefault();
+      currentQuestionIndex = 0;
+      showCurrentQuestion();
+    });
+  }
+
+  /**
    * Handle the user clicking Yes or No.  Determine whether to move to the
    * next question or display a stage.
    * @param {string} answer - Either 'yes' or 'no'
@@ -139,7 +156,9 @@ document.addEventListener('DOMContentLoaded', () => {
   function handleAnswer(answer) {
     const current = questions[currentQuestionIndex];
     const next = current[answer];
-    if (next.stage) {
+    if (next.congrats) {
+      showCongrats(next.congrats);
+    } else if (next.stage) {
       showResult(next.stage);
     } else if (typeof next.next === 'number') {
       currentQuestionIndex = next.next;
